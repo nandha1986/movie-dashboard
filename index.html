@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Films Revenue Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Indian Films Revenue Dashboard</h1>
+            <p class="subtitle">Year-over-Year Performance Analysis</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Revenue (2024)</h3>
+                    <p class="metric" id="totalRevenue">₹0 Cr</p>
+                </div>
+                <div class="card">
+                    <h3>Theatre Revenue</h3>
+                    <p class="metric" id="theatreRevenue">₹0 Cr</p>
+                </div>
+                <div class="card">
+                    <h3>OTT Revenue</h3>
+                    <p class="metric" id="ottRevenue">₹0 Cr</p>
+                </div>
+                <div class="card">
+                    <h3>Top Grossing Film</h3>
+                    <p class="metric" id="topFilm">-</p>
+                </div>
+            </div>
+
+            <!-- Year-over-Year Chart -->
+            <div class="chart-container">
+                <h2>Year-over-Year Revenue Trend</h2>
+                <canvas id="yearlyRevenueChart"></canvas>
+            </div>
+
+            <!-- OTT vs Theatre Chart -->
+            <div class="chart-container">
+                <h2>OTT vs Theatre Revenue Distribution</h2>
+                <canvas id="ottVsTheatreChart"></canvas>
+            </div>
+
+            <!-- Top 10 Movies Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Top 10 Highest Grossing Films</h2>
+                    <div class="filters">
+                        <label for="yearFilter">Year:</label>
+                        <select id="yearFilter">
+                            <option value="all">All Years</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table id="moviesTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Movie Name</th>
+                                <th>Year</th>
+                                <th>Cast</th>
+                                <th>Production House</th>
+                                <th>Theatre Revenue (₹ Cr)</th>
+                                <th>OTT Revenue (₹ Cr)</th>
+                                <th>Total Revenue (₹ Cr)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="moviesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data updated: <span id="lastUpdated"></span></p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
