@@ -51,14 +51,35 @@
             <div class="table-container">
                 <div class="table-header">
                     <h2>Top 10 Highest Grossing Films</h2>
-                    <div class="filters">
-                        <label for="yearFilter">Year:</label>
-                        <select id="yearFilter">
-                            <option value="all">All Years</option>
-                        </select>
+                    <div class="controls">
+                        <div class="filters">
+                            <label for="yearFilter">Year:</label>
+                            <select id="yearFilter">
+                                <option value="all">All Years</option>
+                            </select>
+                        </div>
+                        <div class="view-toggle">
+                            <button id="tableViewBtn" class="view-btn active" title="Table View">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <line x1="3" y1="9" x2="21" y2="9"/>
+                                    <line x1="9" y1="21" x2="9" y2="9"/>
+                                </svg>
+                            </button>
+                            <button id="tileViewBtn" class="view-btn" title="Tile View">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7"/>
+                                    <rect x="14" y="3" width="7" height="7"/>
+                                    <rect x="14" y="14" width="7" height="7"/>
+                                    <rect x="3" y="14" width="7" height="7"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="table-wrapper">
+                
+                <!-- Table View -->
+                <div class="table-wrapper" id="tableView">
                     <table id="moviesTable">
                         <thead>
                             <tr>
@@ -75,6 +96,12 @@
                         <tbody id="moviesTableBody">
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- Tile View -->
+                <div class="tile-wrapper" id="tileView" style="display: none;">
+                    <div id="moviesTileContainer" class="movies-grid">
+                    </div>
                 </div>
             </div>
         </div>

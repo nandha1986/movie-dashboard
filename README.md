@@ -8,7 +8,9 @@ A comprehensive, interactive dashboard to track Indian film revenues year-over-y
 
 - **Year-over-Year Revenue Trends**: Interactive line chart showing revenue trends across years
 - **OTT vs Theatre Distribution**: Doughnut chart comparing OTT and Theatre revenues
-- **Top 10 Movies Table**: Sortable table showing highest-grossing films with complete metadata
+- **Top 10 Movies Display**: View movies in either table or tile/poster view
+  - **Table View**: Detailed tabular data with sortable columns
+  - **Tile View**: Beautiful movie poster cards with visual presentation
 - **Summary Cards**: Quick overview of key metrics
 - **Year Filter**: Filter movies by specific years
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
@@ -113,11 +115,18 @@ const moviesData = [
         productionHouse: "Production House Name",
         theatreRevenue: 500,  // in Crores
         ottRevenue: 150,      // in Crores
-        totalRevenue: 650     // in Crores
+        totalRevenue: 650,    // in Crores
+        posterUrl: "https://example.com/poster.jpg"  // Movie poster URL (optional)
     },
     // Add more movies...
 ];
 ```
+
+**Note on Poster URLs:**
+- For the tile view to show actual movie posters, add the `posterUrl` field with a link to the movie poster image
+- If no `posterUrl` is provided, a placeholder with 🎬 emoji will be shown
+- Recommended poster dimensions: 400x600px or similar aspect ratio
+- You can use image hosting services like Imgur, or link directly to official poster images
 
 ### Modify Styling
 

@@ -1,5 +1,6 @@
 // Initialize charts and data
 let yearlyChart, ottTheatreChart;
+let currentView = 'table'; // Track current view
 
 // Initialize the dashboard
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,11 +18,14 @@ function initializeDashboard() {
     // Populate year filter
     populateYearFilter();
     
-    // Populate movies table
+    // Populate movies table and tiles
     populateMoviesTable();
+    populateMoviesTiles();
     
-    // Add event listener to year filter
+    // Add event listeners
     document.getElementById('yearFilter').addEventListener('change', filterMovies);
+    document.getElementById('tableViewBtn').addEventListener('click', () => switchView('table'));
+    document.getElementById('tileViewBtn').addEventListener('click', () => switchView('tile'));
     
     // Update last updated date
     updateLastUpdated();
@@ -205,14 +209,86 @@ function populateMoviesTable(filteredData = null) {
     });
 }
 
+function populateMoviesTiles(filteredData = null) {
+    const tileContainer = document.getElementById('moviesTileContainer');
+    tileContainer.innerHTML = '';
+    
+    // Use filtered data or all movies, sorted by total revenue
+    const dataToDisplay = filteredData || [...moviesData];
+    dataToDisplay.sort((a, b) => b.totalRevenue - a.totalRevenue);
+    
+    // Get top 10
+    const top10 = dataToDisplay.slice(0, 10);
+    
+    top10.forEach((movie, index) => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+        
+        card.innerHTML = `
+            <div class="movie-poster">
+                ${movie.posterUrl ? 
+                    `<img src="${movie.posterUrl}" alt="${movie.name} Poster" onerror="this.parentElement.innerHTML='<div class=\'movie-poster-placeholder\'>🎬</div>'">` : 
+                    `<div class="movie-poster-placeholder">🎬</div>`
+                }
+                <div class="movie-rank">#${index + 1}</div>
+            </div>
+            <div class="movie-info">
+                <h3 class="movie-title">${movie.name}</h3>
+                <span class="movie-year">${movie.year}</span>
+                <p class="movie-cast">🎭 ${movie.cast}</p>
+                <p class="movie-production">🎥 ${movie.productionHouse}</p>
+                <div class="movie-revenue">
+                    <div class="revenue-item">
+                        <div class="revenue-label">Theatre</div>
+                        <div class="revenue-value theatre">₹${movie.theatreRevenue.toFixed(0)} Cr</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-label">OTT</div>
+                        <div class="revenue-value ott">₹${movie.ottRevenue.toFixed(0)} Cr</div>
+                    </div>
+                </div>
+                <div class="movie-total-revenue">
+                    <div class="revenue-label">Total Revenue</div>
+                    <div class="revenue-value">₹${movie.totalRevenue.toFixed(0)} Cr</div>
+                </div>
+            </div>
+        `;
+        
+        tileContainer.appendChild(card);
+    });
+}
+
+function switchView(view) {
+    currentView = view;
+    
+    const tableView = document.getElementById('tableView');
+    const tileView = document.getElementById('tileView');
+    const tableViewBtn = document.getElementById('tableViewBtn');
+    const tileViewBtn = document.getElementById('tileViewBtn');
+    
+    if (view === 'table') {
+        tableView.style.display = 'block';
+        tileView.style.display = 'none';
+        tableViewBtn.classList.add('active');
+        tileViewBtn.classList.remove('active');
+    } else {
+        tableView.style.display = 'none';
+        tileView.style.display = 'block';
+        tableViewBtn.classList.remove('active');
+        tileViewBtn.classList.add('active');
+    }
+}
+
 function filterMovies() {
     const selectedYear = document.getElementById('yearFilter').value;
     
     if (selectedYear === 'all') {
         populateMoviesTable();
+        populateMoviesTiles();
     } else {
         const filteredMovies = moviesData.filter(movie => movie.year === parseInt(selectedYear));
         populateMoviesTable(filteredMovies);
+        populateMoviesTiles(filteredMovies);
     }
 }
 
