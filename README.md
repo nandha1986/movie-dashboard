@@ -228,4 +228,4 @@ Your Name
 
 **Note**: The sample data included is for demonstration purposes. Please replace it with actual, verified revenue data.
 
-**Last Updated**: January 2026
+**Last Updated**: January 2026    
